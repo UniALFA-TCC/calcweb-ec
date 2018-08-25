@@ -1,4 +1,4 @@
-package br.com.delta_tcc.bean;
+package br.com.alfa_tcc.bean;
 
 public class Calculadora {
 

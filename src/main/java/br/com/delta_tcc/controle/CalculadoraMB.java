@@ -3,7 +3,7 @@ package br.com.delta_tcc.controle;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import br.com.delta_tcc.bean.Calculadora;
+import br.com.alfa_tcc.bean.Calculadora;
 
 @ManagedBean(name = "CalculadoraMB")
 @RequestScoped

@@ -1,4 +1,4 @@
-package br.com.delta_tcc.test;
+package br.com.alfa_tcc.test;
 
 import static org.junit.Assert.*;
 
