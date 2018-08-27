@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import br.com.delta_tcc.controle.CalculadoraMB;
+import br.com.alfa_tcc.controle.CalculadoraMB;
 
 @RunWith(JUnit4.class)
 public class CalculadoraTest {

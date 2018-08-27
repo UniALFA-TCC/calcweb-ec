@@ -1,4 +1,4 @@
-package br.com.delta_tcc.controle;
+package br.com.alfa_tcc.controle;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
