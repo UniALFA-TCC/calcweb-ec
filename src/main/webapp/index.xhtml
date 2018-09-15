@@ -8,52 +8,206 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+<style>
+        html {
+            background: #100a1c;
+            background-image: radial-gradient(50% 30% ellipse at center top, #0d093e 0%, rgba(0, 0, 0, 0) 100%), radial-gradient(60% 50% ellipse at center bottom, #0a0a1d 0%, #12042d 100%);
+            background-attachment: fixed;
+            color: #6cacc5;
+        }
+
+        body {
+            color: #6cacc5;
+            font: 300 18px/1.6 "Source Sans Pro", sans-serif;
+            margin: 0;
+            padding: 5em 0 2em;
+            text-align: center;
+        }
+
+        h1 {
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .warning {
+            background: -webkit-linear-gradient(45deg, #c97874 10%, #463042 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #8c5059;
+            font-weight: 400;
+            margin: 0 auto 6em;
+            max-width: 9em;
+        }
+
+        .calculator {
+            font-size: 28px;
+            margin: 0 auto;
+            width: 10em;
+        }
+
+        .broken {
+            animation: broken 2s;
+            transform: translate3d(0, -2000px, 0);
+            opacity: 0;
+        }
+
+        .viewer {
+            color: white;
+            float: left;
+            line-height: 3em;
+            text-align: right;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 7.5em;
+            height: 3em;
+        }
+        
+        .viewer>input{
+            	border: 0px;
+			    border-top: 0px;
+			    text-align: right;
+			    width: 96%;
+			    background: transparent;
+			    box-shadow: none;
+			    text-shadow: none;
+			    color: white;
+        }
+
+        button {
+            border: 0;
+            background: rgba(42, 50, 113, .28);
+            color: white;
+            cursor: pointer;
+            float: left;
+            font: inherit;
+            margin: 0.25em;
+            width: 2em;
+            height: 2em;
+            transition: all 0.5s;
+        }
+
+        button:hover {
+
+            background: #312e52;
+        }
+
+        .reset {
+            background: rgba(201, 120, 116, .28);
+            color: white;
+            font-weight: 400;
+            margin-left: -77px;
+            padding: 0.5em 1em;
+            position: absolute;
+            top: -20em;
+            left: 50%;
+            width: auto;
+            height: auto;
+        }
+
+        
+        @media (min-width: 420px) {
+            .calculator {
+                width: 12em;
+            }
+            .viewer {
+                width: 8.5em;
+            }
+            button {
+                margin: 0.5em;
+            }
+        }
+        
+        input[type="submit"]{
+        	display: none;
+        }
+    </style>
 
 </h:head>
 <h:body>
-	<h:form id="form_calculadora">
-		<p:panel id="panel" header="Calculadora" style="margin-bottom:10px;">
-			<p:messages id="messages" />
+		<h:form id="form_calculadora">
+		  <div id="calculator" class="calculator">
 
-			<h:panelGrid columns="4" cellpadding="5">
-				<h:outputLabel for="txt1" value="Informe o 1º número: *" />
-				<p:inputText id="txt1" value="#{CalculadoraMB.bean.n1}"
-					required="true" label="Valor 1">
-					<f:validateLength minimum="2" />
-				</p:inputText>
-				<p:message for="txt1" />
-				<h:outputText value="" />
-
-				<h:outputLabel for="txt3" value="Selecione um operador: *" />
-				<h:selectOneRadio id="txt3" value="#{CalculadoraMB.bean.operador}"
-					required="true" label="Operador">					
-					<f:selectItem itemLabel="+" itemValue="+" />					
-					<f:selectItem itemLabel="-" itemValue="-" />
-					<f:selectItem itemLabel="*" itemValue="*" />
-					<f:selectItem itemLabel="/" itemValue="/" />					
-					<f:selectItem itemLabel="^" itemValue="^" />
-				</h:selectOneRadio>
-				
-
-				<p:message for="txt3" />
-				<h:outputText value="#{CalculadoraMB.bean.operador}" />
-
-				<h:outputLabel for="txt2" value="Informe o 2º número: *" />
-				<p:inputText id="txt2" value="#{CalculadoraMB.bean.n2}"
-					required="true" label="Valor 2" />
-				<p:message for="txt2" />
-				<h:outputText value="" />
-
-
-				<p:commandButton update="form_calculadora"
-					action="#{CalculadoraMB.resultado}" value="Calcular">
-				</p:commandButton>
-
-			</h:panelGrid>
-		</p:panel>
-
-
+	        <button id="clear" class="clear">C</button>
+	
+	        <div id="viewer" class="viewer"><p:inputText value="#{CalculadoraMB.expressao}" /></div>
+	
+	        <button class="num" data-num="7">7</button>
+	        <button class="num" data-num="8">8</button>
+	        <button class="num" data-num="9">9</button>
+	        <button class="num" data-num=" + ">+</button>
+	
+	        <button class="num" data-num="4">4</button>
+	        <button class="num" data-num="5">5</button>
+	        <button class="num" data-num="6">6</button>
+	        <button class="num" data-num=" - ">-</button>
+	
+	        <button class="num" data-num="1">1</button>
+	        <button class="num" data-num="2">2</button>
+	        <button class="num" data-num="3">3</button>
+	        <button class="num" data-num=" * ">*</button>
+	
+	        <button class="num" data-num="0">0</button>
+	        <button class="num" data-num=".">.</button>
+	        <button id="equals" class="equals" data-result="">=</button>
+  			<button class="num" data-num=" / ">/</button>
+  			
+  			<button class="num" data-num=" ^ ">^</button>
+  			<h:commandButton update="form_calculadora" value="click" action="#{CalculadoraMB.calcularExpressao()}"/>
+	    </div>
+	
+	    <button id="reset" class="reset">Reset Universe?</button>
 	</h:form>
+	
+	<script>
+	
+		var operadores = ['+', '-', '*', '/', '^'];	
+	
+		document.querySelector('.equals').addEventListener('click', (e) => {
+			
+			document.querySelector('input[type="submit"]').click();
+			e.preventDefault();
+		});
+		
+		var botoes = document.getElementsByClassName("num");
+		
+		Array.from(botoes).forEach(function(element) {
+	      element.addEventListener('click', (e) => {
+	    	  
+	    	  e.preventDefault();
+	    	  
+	    	  var valor = element.getAttribute("data-num");
+
+	            var expressaoAtual = document.querySelector('#viewer > input').value;
+
+	            if (operadores.find(m=> m == valor.trim())) {
+					
+	            	var expressaoValida = true;
+	                for (const operador of operadores) {
+
+	                    if(expressaoAtual.search(`\\\${operador}`) > 0){
+	                        expressaoValida = false;
+	                    }
+	                }
+	                
+	                if(!expressaoValida){
+	                	return;
+	                }
+	            }
+
+	            document.querySelector('#viewer > input').value = expressaoAtual + valor;
+	            e.preventDefault();
+	    	 
+	      });
+	    });
+		
+		document.querySelector('#clear').addEventListener('click', (e) => {
+			
+			document.querySelector('#viewer > input').value = '';
+			e.preventDefault();
+		});
+		
+	
+	</script>
 </h:body>
 
 </html>
