@@ -53,14 +53,6 @@ public class CalculadoraTest {
 		
 		assertEquals(true, mb.calcular() == 2);
 	}
-	
-	@Test
-	public void testCalcularPotenciacao() {
 		
-		mb.getBean().setOperador('^');
-		
-		assertEquals(true, mb.calcular() == 2);
-	}
-
 
 }

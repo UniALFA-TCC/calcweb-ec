@@ -87,15 +87,6 @@ public class CalculadoraMB {
 			bean.setOperador('/');
 		}
 		
-		if(valor.contains("^")) {
-			
-			String[] valores = valor.split(Pattern.quote("^"));
-			
-			n1 = Double.parseDouble(valores[0]);
-			n2 = Double.parseDouble(valores[1]);
-			bean.setOperador('^');
-		}
-		
 		bean.setN1(n1);
 		bean.setN2(n2);
 	}
@@ -121,8 +112,6 @@ public class CalculadoraMB {
 			result = bean.getN1() / bean.getN2();
 		} else if (bean.getOperador() == '*') {
 			result = bean.getN1() * bean.getN2();
-		} else if (bean.getOperador() == '^') {
-			result = Math.pow(bean.getN1(), bean.getN2());
 		} 
 		
 		return result;

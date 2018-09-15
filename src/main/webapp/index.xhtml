@@ -151,7 +151,6 @@
 	        <button id="equals" class="equals" data-result="">=</button>
   			<button class="num" data-num=" / ">/</button>
   			
-  			<button class="num" data-num=" ^ ">^</button>
   			<h:commandButton update="form_calculadora" value="click" action="#{CalculadoraMB.calcularExpressao()}"/>
 	    </div>
 	
@@ -160,7 +159,7 @@
 	
 	<script>
 	
-		var operadores = ['+', '-', '*', '/', '^'];	
+		var operadores = ['+', '-', '*', '/'];	
 	
 		document.querySelector('.equals').addEventListener('click', (e) => {
 			
